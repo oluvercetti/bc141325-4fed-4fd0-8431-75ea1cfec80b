@@ -58,101 +58,35 @@ const handleSubmit = async () => {
     form.value?.reset()
   }
 }
+
+const priorityOptions = ["Hifh", "Medium", "Low"]
 </script>
 
 <template>
   <form ref="form" @submit.prevent="handleSubmit">
-    <v-text-field
-      v-model="taskData.title"
-      label="Title"
-      variant="outlined"
-      :rules="rules.title"
-    ></v-text-field>
-    <v-textarea
-      v-model="taskData.description"
-      label="Description"
-      variant="outlined"
-      rows="3"
-      :rules="rules.description"
-    ></v-textarea>
+    <v-text-field v-model="taskData.title" label="Title" variant="outlined" :rules="rules.title"></v-text-field>
+    <v-textarea v-model="taskData.description" label="Description" variant="outlined" rows="3"
+      :rules="rules.description"></v-textarea>
     <div class="grid grid-cols-1 md:grid-cols-2 items-start justify-between gap-8 w-full">
       <div>
-        <v-chip-group
-          v-model="taskData.priority"
-          mandatory
-          selected-class="text-primary"
-          direction="vertical"
-          class="w-full"
-          label="Priority"
-          data-test="grp-button"
-        >
-          <p>Priority</p>
-          <v-chip
-            :key="PriorityEnum.High"
-            :text="PriorityEnum.High"
-            :value="PriorityEnum.High"
-            variant="outlined"
-            class="w-full"
-            data-test="high-button"
-          ></v-chip>
-          <v-chip
-            :key="PriorityEnum.Medium"
-            :text="PriorityEnum.Medium"
-            :value="PriorityEnum.Medium"
-            variant="outlined"
-            class="w-full"
-          ></v-chip>
-          <v-chip
-            :key="PriorityEnum.Low"
-            :text="PriorityEnum.Low"
-            :value="PriorityEnum.Low"
-            variant="outlined"
-            class="w-full"
-          ></v-chip>
-        </v-chip-group>
-        <v-chip-group
-          v-model="taskData.status"
-          mandatory
-          selected-class="text-primary"
-          direction="vertical"
-          class="w-full"
-          data-test="status-button"
-        >
+        <v-select v-model="taskData.priority" :items="priorityOptions" label="Priority" class="w-full"
+          data-test="priority-dropdown">
+        </v-select>
+        <v-chip-group v-model="taskData.status" mandatory selected-class="text-primary" direction="vertical"
+          class="w-full" data-test="status-button">
           <p>Status</p>
-          <v-chip
-            :key="StatusEnum.Pending"
-            :text="StatusEnum.Pending"
-            :value="StatusEnum.Pending"
-            variant="outlined"
-            class="w-full"
-            data-test="pendingstatus-button"
-          ></v-chip>
-          <v-chip
-            :key="StatusEnum.InProgress"
-            :text="StatusEnum.InProgress"
-            :value="StatusEnum.InProgress"
-            variant="outlined"
-            class="w-full"
-          ></v-chip>
-          <v-chip
-            :key="StatusEnum.Completed"
-            :text="StatusEnum.Completed"
-            :value="StatusEnum.Completed"
-            variant="outlined"
-            class="w-full"
-          ></v-chip>
+          <v-chip :key="StatusEnum.Pending" :text="StatusEnum.Pending" :value="StatusEnum.Pending" variant="outlined"
+            class="w-full" data-test="pendingstatus-button"></v-chip>
+          <v-chip :key="StatusEnum.InProgress" :text="StatusEnum.InProgress" :value="StatusEnum.InProgress"
+            variant="outlined" class="w-full"></v-chip>
+          <v-chip :key="StatusEnum.Completed" :text="StatusEnum.Completed" :value="StatusEnum.Completed"
+            variant="outlined" class="w-full"></v-chip>
         </v-chip-group>
       </div>
       <v-row class="w-full mt-2">
         <label htmlFor="date">Due Date</label>
-        <input
-          class="w-full border border-b-slate-500"
-          v-model="taskData.due_date"
-          id="date"
-          type="date"
-          :min="min"
-          :rules="rules.due_date"
-        />
+        <input class="w-full border border-b-slate-500" v-model="taskData.due_date" id="date" type="date" :min="min"
+          :rules="rules.due_date" />
       </v-row>
     </div>
     <v-btn type="submit" color="primary" block class="mt-4">Update Task </v-btn>

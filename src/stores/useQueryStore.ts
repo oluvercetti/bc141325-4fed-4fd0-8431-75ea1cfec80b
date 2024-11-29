@@ -3,7 +3,9 @@ import { watch, type ComputedRef } from 'vue'
 import { useTaskStore } from './useTaskStore'
 import { storeToRefs } from 'pinia'
 
-export function useFetch(url: string, query: ComputedRef<IRequestQuery>) {
+const url = import.meta.env.VITE_BASE_URL ?? "";
+export function useFetch(query: ComputedRef<IRequestQuery>) {
+
   const store = useTaskStore()
   const { refreshTask, updateLoadingState, updateErrorState } = store
   const { data } = storeToRefs(store)
@@ -11,6 +13,7 @@ export function useFetch(url: string, query: ComputedRef<IRequestQuery>) {
   async function fetchData(): Promise<void> {
     updateLoadingState(true)
     updateErrorState(null)
+
     try {
       const queryParams = new URLSearchParams(Object.entries(query.value)).toString()
       const fullUrl = queryParams ? `${url}?${queryParams}` : url

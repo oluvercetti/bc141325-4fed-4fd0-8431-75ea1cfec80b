@@ -11,7 +11,7 @@ import { filterAndSortTasks } from '@/utility/utils'
 const router = useRouter()
 const page = ref(1)
 const query = computed<IRequestQuery>(() => ({ page: page.value }))
-const apiStore = useFetch('https://run.mocky.io/v3/dbd7063e-9fd2-440e-ba74-1b0387a2d5b0', query)
+const apiStore = useFetch(query)
 const { fetchData } = apiStore
 const store = useTaskStore()
 const { data, isLoading, error } = storeToRefs(store)
