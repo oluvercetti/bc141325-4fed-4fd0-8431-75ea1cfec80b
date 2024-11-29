@@ -1,0 +1,23 @@
+{
+  "files": [],
+  "compilerOptions": {
+    "baseUrl": "./src/",
+    "paths": {
+      "@/*": ["*"],
+      "@components/*": ["components/*"],
+      "@pages/*": ["pages/*"],
+    },
+  },
+  "include": ["auto-imports.d.ts"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.vitest.json"
+    }
+  ]
+}
